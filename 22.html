@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini E-Commerce</title>
+    <link rel="stylesheet" href="22.css">
+</head>
+<body>
+    <h1>Produits</h1>
+    <div id="products"></div>
+    
+    <h2>Panier</h2>
+    <div id="cart"></div>
+    <button onclick="clearCart()">Vider le panier</button>
+
+    <script>
+        const PRODUCTS = [
+            { id: 1, name: 'Produit A', price: 1400.0, image: 'OIP (1).jpg' },
+            { id: 2, name: 'Produit B', price: 1100.0, image: 'OIP.jpg' },
+            { id: 3, name: 'Produit C', price: 900.0, image: 'télécharger.jpg' },
+            { id: 4, name: 'Produit D', price: 750.0, image: 'free.jpg' },
+            { id: 5, name: 'Produit E', price: 1250.0, image: 'bg.jpg' }
+        ];
+
+        function displayProducts() {
+            let productsDiv = document.getElementById('products');
+            productsDiv.innerHTML = '';
+            PRODUCTS.forEach(product => {
+                let div = document.createElement('div');
+                div.className = 'product';
+                div.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <p>${product.name} - ${product.price} DH</p>
+                    <button onclick="addToCart(${product.id})">Ajouter</button>
+                `;
+                productsDiv.appendChild(div);
+            });
+        }
+
+        function addToCart(productId) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+
+        function displayCart() {
+            let cartDiv = document.getElementById('cart');
+            cartDiv.innerHTML = '';
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let cartItems = PRODUCTS.filter(p => cart.includes(p.id));
+            cartItems.forEach(item => {
+                let div = document.createElement('div');
+                div.innerHTML = `${item.name} - ${item.price} DH`;
+                cartDiv.appendChild(div);
+            });
+        }
+
+        function clearCart() {
+            localStorage.removeItem('cart');
+            displayCart();
+        }
+
+        displayProducts();
+        displayCart();
+    </script>
+</body>
+</html>

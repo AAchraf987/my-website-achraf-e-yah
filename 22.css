@@ -1,0 +1,9 @@
+body { font-family: Arial, sans-serif; background-color: #943434; text-align: center; }
+.product { border: 1px solid #c69c9c; padding: 10px; margin: 10px; display: inline-block; width: 200px; background: rgb(238, 233, 233); }
+.product img { width: 100%; height: 100; }
+.cart { margin-top: 20px; background: #7c7a8155; padding: 10px; display: inline-block; }
+
+img {
+    width: 300px;
+    height:300px ;
+}
